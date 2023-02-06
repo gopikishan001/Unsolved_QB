@@ -42,24 +42,6 @@ class _homeScreenState extends State<homeScreen> {
     ]);
     final firebaseMessaging = FCM();
     firebaseMessaging.setNotifications();
-    if (tempDir == "") {
-      getTempDir();
-      print(tempDir);
-    }
-  }
-
-  getTempDir() async {
-    // var dir = await getApplicationDocumentsDirectory();
-    // tempDir = dir.path;
-
-    tempDir = "/storage/emulated/0/Download/Unsolved_QB";
-    final Directory _appDocDirFolder = Directory(tempDir);
-    if (await _appDocDirFolder.exists()) {
-      null;
-    } else {
-      final Directory _appDocDirNewFolder =
-          await _appDocDirFolder.create(recursive: true);
-    }
   }
 
   @override
@@ -211,7 +193,7 @@ class _homeScreenState extends State<homeScreen> {
           builder: (context) => Padding(
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
-              icon: Icon(Icons.download),
+              icon: Icon(Icons.more_vert),
               onPressed: () => Scaffold.of(context).openEndDrawer(),
               // tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
             ),

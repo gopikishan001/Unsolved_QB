@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:unsolved_qb/screens/addData.dart';
 import 'package:unsolved_qb/screens/homeScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:unsolved_qb/screens/pdfViewScreen.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
       routes: {
         // "PDF_view_screen": (context) => (pdfViewScreen(pdfName: "",)),
         "home_screen": (context) => (homeScreen()),
+        "add_data": (context) => const addData(),
       },
     );
   }

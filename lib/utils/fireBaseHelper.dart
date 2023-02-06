@@ -143,7 +143,8 @@ class fireBaseHelper {
 
 // For uploading links
 
-  uploadValues(course, branch, sem, sub, type, name) {
+  uploadValues(course, branch, sem, sub, type, fileName, doc_link, img_link,
+      size, pages) {
     FirebaseFirestore.instance
         .collection('courses')
         .doc(course)
@@ -152,10 +153,11 @@ class fireBaseHelper {
         .collection(subjectMap[sub].toString())
         .doc(type)
         .set({
-      name: {
-        "link": "www",
-        "pages": 62,
-        "size": 4,
+      fileName.toString(): {
+        "image_link": img_link.toString(),
+        "doc_link": doc_link.toString(),
+        "pages": pages.toString(),
+        "size": size.toString(),
       }
     }, SetOptions(merge: true));
   }

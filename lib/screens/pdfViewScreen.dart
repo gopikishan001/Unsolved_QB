@@ -47,107 +47,6 @@ class _pdfViewScreenState extends State<pdfViewScreen> {
     ]);
   }
 
-  // bool downloading = false;
-  // var progress = "";
-  // var path = "No Data";
-  // var platformVersion = "Unknown";
-  // var _onPressed;
-  // late Directory externalDir;
-  double progress = 0;
-
-  // Track if the PDF was downloaded here.
-  bool didDownloadPDF = false;
-
-  // Show the progress status to the user.
-  String progressString = 'File has not been downloaded yet.';
-
-  Future<void> updateProgress(done, total) async {
-    progress = done / total;
-
-    if (progress >= 1) {
-      await DataBaseHelper.instance.insert({
-        DataBaseHelper.file_name: widget.pdfName,
-        DataBaseHelper.size: docMap[widget.pdfName]!["size"],
-        DataBaseHelper.pages: docMap[widget.pdfName]!["pages"],
-      }, 0);
-      setState(() {
-        progressString =
-            '✅ File has finished downloading. Try opening the file.';
-
-        toast("✅ File Downloaded");
-      });
-
-      // didDownloadPDF = true;
-
-    } else {
-      setState(() {
-        progressString = 'Download progress: ' +
-            (progress * 100).toStringAsFixed(0) +
-            '% done.';
-        toast(progressString);
-      });
-    }
-  }
-
-  Future download(Dio dio, String url, String savePath) async {
-    try {
-      // print(savePath);
-
-      await dio.download(url, savePath,
-          onReceiveProgress: (receivedBytes, totalBytes) {
-        setState(() {
-          // downloading = true;
-          String progress2 =
-              ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
-          toast(progress2);
-        });
-      });
-
-      // Response response = await dio.get(
-      //   url,
-      //   onReceiveProgress: updateProgress,
-      //   options: Options(
-      //       responseType: ResponseType.bytes,
-      //       followRedirects: false,
-      //       validateStatus: (status) {
-      //         return status! < 500;
-      //       }),
-      // );
-      // var file = File(savePath).openSync(mode: FileMode.write);
-
-      // file.writeFromSync(response.data);
-      // await file.close();
-
-      await DataBaseHelper.instance.insert({
-        DataBaseHelper.file_name: widget.pdfName,
-        DataBaseHelper.size: docMap[widget.pdfName]!["size"],
-        DataBaseHelper.pages: docMap[widget.pdfName]!["pages"],
-      }, 0);
-
-      // toast("✅ file downloaded");
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  downloadButton(url, fileName) async {
-    // var tempDir = await getApplicationDocumentsDirectory();
-
-    // String c_path = "/storage/emulated/0/Download/Unsolved_QB";
-
-    getpermission();
-    didDownloadPDF = false;
-
-    if (offlineDocMap.containsKey(fileName)) {
-      toast("redownloading file");
-      DataBaseHelper.instance.delete(offlineDocMap[fileName]!["id"], 0);
-    }
-
-    didDownloadPDF
-        ? null
-        : download(Dio(), url, tempDir + "/$fileName" + ".pdf");
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -180,12 +79,28 @@ class _pdfViewScreenState extends State<pdfViewScreen> {
                         ? TextButton(
                             style: pdfViewScreenButtonStyle(),
                             onPressed: () async {
-                              // toast("downloading document");
-
-                              downloadButton(docMap[widget.pdfName]!["link"],
-                                  widget.pdfName);
+                              if (offlineDocMap.containsKey(widget.pdfName)) {
+                                toast("already added");
+                              } else {
+                                offlineDocMap[widget.pdfName] = {
+                                  "size": docMap[widget.pdfName]!["size"],
+                                  "pages": docMap[widget.pdfName]!["pages"],
+                                  "link": docMap[widget.pdfName]!["link"],
+                                };
+                                toast("Adding to Bookmark");
+                                await DataBaseHelper.instance.insert({
+                                  DataBaseHelper.file_name: widget.pdfName,
+                                  DataBaseHelper.size:
+                                      docMap[widget.pdfName]!["size"],
+                                  DataBaseHelper.pages:
+                                      docMap[widget.pdfName]!["pages"],
+                                  DataBaseHelper.file_link:
+                                      docMap[widget.pdfName]!["link"],
+                                }, 0);
+                              }
                             },
-                            child: Icon(Icons.download, color: appBarTextColor))
+                            child: Icon(Icons.bookmark_add_outlined,
+                                color: appBarTextColor))
                         : SizedBox())
               ],
             ),
@@ -197,15 +112,13 @@ class _pdfViewScreenState extends State<pdfViewScreen> {
                       toast("Failed loading PDF");
                     },
                   )
-                : offlinePDFview(widget.pdfName.toString())
-
-            // SfPdfViewer.network(
-            //     docMap[widget.pdfName].toString(),
-            //     onDocumentLoadFailed: (details) {
-            //       toast("Failed loading PDF");
-            //     },
-            //   ),
-            ),
+                : SfPdfViewer.network(
+                    // "https://www.orimi.com/pdf-test.pdf",
+                    offlineDocMap[widget.pdfName]!["link"].toString(),
+                    onDocumentLoadFailed: (details) {
+                      toast("Failed loading PDF");
+                    },
+                  )),
       ),
     );
   }
@@ -219,77 +132,6 @@ class _pdfViewScreenState extends State<pdfViewScreen> {
       ]),
     };
   }
-
-  getpermission() async {
-    var status = await Permission.manageExternalStorage.status;
-
-    if (!status.isGranted) {
-      await Permission.manageExternalStorage.request();
-    }
-
-    status = await Permission.manageExternalStorage.status;
-
-    if (!status.isGranted) {
-      toast("Permission denied");
-    }
-
-    // await Permission.manageExternalStorage.request();
-  }
-
-  offlinePDFview(name) {
-    getpermission();
-
-    return SfPdfViewer.file(File(tempDir + "/$name" + ".pdf"));
-    // return SfPdfViewer.file(File(file));
-  }
-
-  // Future<void> downloadFile() async {
-  //   Dio dio = Dio();
-
-  //   final status = await Permission.storage.request();
-  //   if (status.isGranted) {
-  //     String dirloc = "";
-  //     if (Platform.isAndroid) {
-  //       dirloc = "/sdcard/download/";
-  //     } else {
-  //       // dirloc = (await getApplicationDocumentsDirectory()).path;
-  //     }
-
-  //     try {
-  //       FileUtils.mkdir([dirloc]);
-  //       await dio.download(
-  //           pdfUrl, dirloc + convertCurrentDateTimeToString() + ".pdf",
-  //           onReceiveProgress: (receivedBytes, totalBytes) {
-  //         print('here 1');
-  //         setState(() {
-  //           downloading = true;
-  //           progress =
-  //               ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
-  //           print(progress);
-  //         });
-  //         print('here 2');
-  //       });
-  //     } catch (e) {
-  //       print('catch catch catch');
-  //       print(e);
-  //     }
-
-  //     setState(() {
-  //       downloading = false;
-  //       progress = "Download Completed.";
-  //       path = dirloc + convertCurrentDateTimeToString() + ".pdf";
-  //     });
-  //     print(path);
-  //     print('here give alert-->completed');
-  //   } else {
-  //     setState(() {
-  //       progress = "Permission Denied!";
-  //       _onPressed = () {
-  //         downloadFile();
-  //       };
-  //     });
-  //   }
-  // }
 
   toast(msg) {
     Fluttertoast.showToast(

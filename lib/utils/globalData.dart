@@ -23,7 +23,5 @@ Map<String, Map<String, dynamic>> offlineDocMap = {};
 
 GlobalKey<ScaffoldState> drawerKey = GlobalKey();
 
-var tempDir = "";
-
 String shareMessage =
     "Hey check out this app. Will be available on playstore soon";

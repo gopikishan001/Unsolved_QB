@@ -17,6 +17,7 @@ class DataBaseHelper {
   static String size = "size";
   static String pages = "pages";
   static String file_name = "name";
+  static String file_link = "link";
 
   static Database? db;
   Future<Database> get get_database async => db ??= await initiateDB();
@@ -31,8 +32,9 @@ class DataBaseHelper {
     await db.execute('''
 CREATE TABLE ${tableName[0]}(
 $id INTEGER PRIMARY KEY,
-$size INTEGER,
-$pages INTEGER,
+$size TEXT,
+$pages TEXT,
+$file_link TEXT,
 $file_name TEXT);
  ''');
 
@@ -59,11 +61,11 @@ $file_name TEXT);
     return await db.query(tableName[table], where: " id = ?", whereArgs: [id]);
   }
 
-  Future<int> update(Map<String, dynamic> row, int table) async {
-    Database db = await instance.get_database;
-    int id = row["id"];
-    return db.update(tableName[table], row, where: " id = ?", whereArgs: [id]);
-  }
+  // Future<int> update(Map<String, dynamic> row, int table) async {
+  //   Database db = await instance.get_database;
+  //   int id = row["id"];
+  //   return db.update(tableName[table], row, where: " id = ?", whereArgs: [id]);
+  // }
 
   Future<int> delete(int id, int table) async {
     Database db = await instance.get_database;

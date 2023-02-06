@@ -168,17 +168,29 @@ class _leftDrawerScreenState extends State<leftDrawerScreen> {
                   TextButton(
                     style: drawerScreenButtonStyle(),
                     onPressed: () async {
-                      await fireBaseHelper().getDocList(
-                          selected_course,
-                          selected_branch,
-                          selected_sem,
-                          selected_sub,
-                          selected_type);
+                      if (selected_course == "Course") {
+                        toast("select course");
+                      } else if (selected_branch == "Branch") {
+                        toast("select Branch");
+                      } else if (selected_sem == "Semester") {
+                        toast("select semester");
+                      } else if (selected_sub == "Subject") {
+                        toast("select subject");
+                      } else if (selected_type == "Type") {
+                        toast("select type");
+                      } else {
+                        await fireBaseHelper().getDocList(
+                            selected_course,
+                            selected_branch,
+                            selected_sem,
+                            selected_sub,
+                            selected_type);
 
-                      // fireBaseHelper().uploadValues(selected_course, selected_branch,
-                      //     selected_sem, selected_sub, selected_type, "name");
+                        // fireBaseHelper().uploadValues(selected_course, selected_branch,
+                        //     selected_sem, selected_sub, selected_type, "name");
 
-                      drawerKey.currentState!.closeDrawer();
+                        drawerKey.currentState!.closeDrawer();
+                      }
                     },
                     child: const Text(
                       "Search",
@@ -206,4 +218,15 @@ class _leftDrawerScreenState extends State<leftDrawerScreen> {
       )),
     );
   }
+}
+
+toast(data) {
+  Fluttertoast.showToast(
+      msg: data,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      textColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 75, 75, 75),
+      fontSize: 16.0);
 }
