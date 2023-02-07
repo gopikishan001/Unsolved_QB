@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:unsolved_qb/screens/addData.dart';
 import 'package:unsolved_qb/utils/globalData.dart';
 
 class fireBaseHelper {
@@ -120,9 +121,12 @@ class fireBaseHelper {
           .get();
 
       docMap = Map<String, Map<String, dynamic>>.from(convert(fetchList));
+      if (docMap.length == 0) {
+        toast("Adding files soon");
+      }
     } catch (e) {
       print(e.toString());
-      showTost("Values not selected properly");
+      showTost("Search options not selected properly");
     }
   }
 

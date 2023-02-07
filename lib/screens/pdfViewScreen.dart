@@ -1,29 +1,10 @@
-// import 'dart:html';
-import 'dart:io';
-
-// import 'package:dio/dio.dart';
-import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
-import 'package:dio/dio.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/container.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:pspdfkit_flutter/pspdfkit.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:unsolved_qb/utils/colors.dart';
-import 'package:unsolved_qb/utils/fireBaseHelper.dart';
 import 'package:unsolved_qb/utils/globalData.dart';
 import 'package:unsolved_qb/utils/localDataBaseHelper.dart';
-// import 'package:permission_handler/permission_handler.dart';
-// import 'package:flutter_file_utils/flutter_file_utils.dart';
-
-// import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 
 class pdfViewScreen extends StatefulWidget {
   pdfViewScreen({super.key, required this.pdfName, required this.isOnline});

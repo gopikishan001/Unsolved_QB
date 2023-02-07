@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:unsolved_qb/utils/colors.dart';
 import 'package:unsolved_qb/utils/fireBaseHelper.dart';
@@ -70,7 +67,7 @@ class _leftDrawerScreenState extends State<leftDrawerScreen> {
                       branchList.clear();
                       selected_branch = "Branch";
                       semList.clear();
-                      selected_sem = "Semester";
+                      selected_sem = "Sem / Year";
                       subjectList.clear();
                       selected_sub = "Subject";
                       typeList.clear();
@@ -94,7 +91,7 @@ class _leftDrawerScreenState extends State<leftDrawerScreen> {
                     })),
                     onChanged: (value) async {
                       semList.clear();
-                      selected_sem = "Semester";
+                      selected_sem = "Sem / Year";
                       subjectList.clear();
                       selected_sub = "Subject";
                       typeList.clear();
@@ -172,12 +169,12 @@ class _leftDrawerScreenState extends State<leftDrawerScreen> {
                         toast("select course");
                       } else if (selected_branch == "Branch") {
                         toast("select Branch");
-                      } else if (selected_sem == "Semester") {
-                        toast("select semester");
+                      } else if (selected_sem == "Sem / Year") {
+                        toast("select Sem / Year");
                       } else if (selected_sub == "Subject") {
-                        toast("select subject");
+                        toast("select Subject");
                       } else if (selected_type == "Type") {
-                        toast("select type");
+                        toast("select Type");
                       } else {
                         await fireBaseHelper().getDocList(
                             selected_course,

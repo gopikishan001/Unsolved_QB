@@ -1,17 +1,8 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:unsolved_qb/screens/addData.dart';
-import 'package:unsolved_qb/screens/homeScreen.dart';
 import 'package:unsolved_qb/screens/pdfViewScreen.dart';
 import 'package:unsolved_qb/utils/colors.dart';
-import 'package:unsolved_qb/utils/fireBaseHelper.dart';
 import 'package:unsolved_qb/utils/globalData.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -37,8 +28,6 @@ class _rightDrawerScreenState extends State<rightDrawerScreen> {
         await DataBaseHelper.instance.querryAll([], 0);
 
     // id_name[invDB[ind]["id"]] = invDB[ind][DataBaseHelper.inv_Name]
-
-    print(fileDB);
 
     offlineDocMap.clear();
     // if (fileDB.isNotEmpty) {
@@ -71,14 +60,8 @@ class _rightDrawerScreenState extends State<rightDrawerScreen> {
                 fileDB[index][DataBaseHelper.file_link] == ""
             ? "link"
             : fileDB[index][DataBaseHelper.file_link],
-        size: fileDB[index][DataBaseHelper.size] == null ||
-                fileDB[index][DataBaseHelper.size] == ""
-            ? "--"
-            : fileDB[index][DataBaseHelper.size],
-        pages: fileDB[index][DataBaseHelper.pages] == null ||
-                fileDB[index][DataBaseHelper.pages] == ""
-            ? "--"
-            : fileDB[index][DataBaseHelper.pages],
+        size: fileDB[index][DataBaseHelper.size] ?? "",
+        pages: fileDB[index][DataBaseHelper.pages] ?? "",
       );
     });
   }
@@ -263,7 +246,7 @@ class _rightDrawerScreenState extends State<rightDrawerScreen> {
                 // color: Colors.grey[100],
                 // borderRadius: BorderRadius.all(Radius.circular(5)),
                 ),
-            height: 70,
+            height: 75,
             // margin: const EdgeInsets.symmetric(vertical: 3),
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
             child: Row(
@@ -276,15 +259,15 @@ class _rightDrawerScreenState extends State<rightDrawerScreen> {
                             ? file.name
                             : file.name.substring(0, 20) + "...",
                         textScaleFactor: 1.3),
-                    SizedBox(height: 5),
+                    SizedBox(height: 8),
                     Row(children: [
                       Text(
                         "pages : " + file.pages.toString(),
-                        style: TextStyle(fontSize: 12),
+                        style: TextStyle(fontSize: 12.5),
                       ),
                       SizedBox(width: 10),
                       Text("size : " + file.size.toString() + " MB",
-                          style: TextStyle(fontSize: 12))
+                          style: TextStyle(fontSize: 12.5))
                     ]),
                   ],
                 ),

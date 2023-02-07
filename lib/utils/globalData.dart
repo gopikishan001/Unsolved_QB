@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 List<String> courseList = [];
 List<String> branchList = [];
@@ -11,7 +10,7 @@ List<String> docList = [];
 
 String selected_course = "Course";
 String selected_branch = "Branch";
-String selected_sem = "Semester";
+String selected_sem = "Sem / Year";
 String selected_sub = "Subject";
 String selected_type = "Type";
 // String selected_paper = "";

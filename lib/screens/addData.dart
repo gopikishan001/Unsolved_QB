@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:unsolved_qb/utils/colors.dart';
 import '../utils/fireBaseHelper.dart';
 
 import '../utils/globalData.dart';
-import 'leftDrawerScreen.dart';
 
 class addData extends StatefulWidget {
   const addData({super.key});
@@ -24,7 +21,7 @@ class _addDataState extends State<addData> {
 
     selected_course = "Course";
     selected_branch = "Branch";
-    selected_sem = "Semester";
+    selected_sem = "Sem / Year";
     selected_sub = "Subject";
     selected_type = "Type";
   }
@@ -44,8 +41,8 @@ class _addDataState extends State<addData> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar:
-          AppBar(title: Text("Adding data"), backgroundColor: backgroundColor),
+      appBar: AppBar(
+          title: const Text("Adding data"), backgroundColor: backgroundColor),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(20),
@@ -64,7 +61,7 @@ class _addDataState extends State<addData> {
                   branchList.clear();
                   selected_branch = "Branch";
                   semList.clear();
-                  selected_sem = "Semester";
+                  selected_sem = "Sem / Year";
                   subjectList.clear();
                   selected_sub = "Subject";
                   typeList.clear();
@@ -88,7 +85,7 @@ class _addDataState extends State<addData> {
                 })),
                 onChanged: (value) async {
                   semList.clear();
-                  selected_sem = "Semester";
+                  selected_sem = "Sem / Year";
                   subjectList.clear();
                   selected_sub = "Subject";
                   typeList.clear();
@@ -158,17 +155,17 @@ class _addDataState extends State<addData> {
                   setState(() {});
                 },
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Row(
                 children: [
-                  Text("File Name : ", textScaleFactor: 1.5),
+                  const Text("File Name : ", textScaleFactor: 1.5),
                   Container(
                       height: 50,
                       width: MediaQuery.of(context).size.width - 160,
                       child: TextFormField(controller: fileName_text)),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   Container(
@@ -187,13 +184,13 @@ class _addDataState extends State<addData> {
                                 builder: (context) =>
                                     doc_test(link: link_text.text.toString())));
                       },
-                      child: Text(
+                      child: const Text(
                         "test link",
                         textScaleFactor: 1.5,
                       ))
                 ],
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Row(
                 children: [
                   Container(
@@ -208,7 +205,7 @@ class _addDataState extends State<addData> {
                       onPressed: () {
                         setState(() {});
                       },
-                      child: Text(
+                      child: const Text(
                         "test img",
                         textScaleFactor: 1.5,
                       )),
@@ -219,14 +216,14 @@ class _addDataState extends State<addData> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 children: [
-                  Text(
+                  const Text(
                     "pages",
                     textScaleFactor: 1.5,
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Container(
                       height: 50,
                       width: 60,
@@ -234,12 +231,12 @@ class _addDataState extends State<addData> {
                         keyboardType: TextInputType.number,
                         controller: pages_text,
                       )),
-                  SizedBox(width: 50),
-                  Text(
+                  const SizedBox(width: 50),
+                  const Text(
                     "size in mb",
                     textScaleFactor: 1.5,
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Container(
                       height: 50,
                       width: 60,
@@ -249,19 +246,19 @@ class _addDataState extends State<addData> {
                       ))
                 ],
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               TextButton(
                   onPressed: () {
                     if (selected_course == "Course") {
                       toast("select course");
                     } else if (selected_branch == "Branch") {
                       toast("select Branch");
-                    } else if (selected_sem == "Semester") {
-                      toast("select semester");
+                    } else if (selected_sem == "Sem / Year") {
+                      toast("select Sem / Year");
                     } else if (selected_sub == "Subject") {
-                      toast("select subject");
+                      toast("select Subject");
                     } else if (selected_type == "Type") {
-                      toast("select type");
+                      toast("select Type");
                     } else if (fileName_text.text == "") {
                       toast("File name missing");
                     } else if (link_text.text == "") {
@@ -293,7 +290,7 @@ class _addDataState extends State<addData> {
                       img_text.text = "";
                     }
                   },
-                  child: Text(
+                  child: const Text(
                     "submit",
                     style: TextStyle(color: Colors.red),
                     textScaleFactor: 2,
@@ -314,7 +311,7 @@ class doc_test extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Doc link test")),
+      appBar: AppBar(title: const Text("Doc link test")),
       body: Container(
           child: SfPdfViewer.network(
         link,
