@@ -15,7 +15,7 @@ import 'package:unsolved_qb/utils/globalData.dart';
 Future main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     systemNavigationBarColor: Colors.white,
-    statusBarColor: backgroundColor[300],
+    statusBarColor: backgroundColor,
     systemStatusBarContrastEnforced: true,
     systemNavigationBarIconBrightness: Brightness.dark,
   ));

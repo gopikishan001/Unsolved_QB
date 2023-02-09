@@ -28,26 +28,41 @@ class _leftDrawerScreenState extends State<leftDrawerScreen> {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width / 1.4,
-      decoration: BoxDecoration(color: backgroundColor[100]),
+      decoration: BoxDecoration(color: backgroundColorLight),
       child: Column(
         children: [
           Expanded(
               flex: 3,
               child: Container(
-                padding: EdgeInsets.only(left: 15),
-                decoration: BoxDecoration(color: backgroundColor[300]),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(Icons.notes, color: appBarTextColor),
-                    SizedBox(width: 8),
-                    Text(
-                      "Unsolved QB",
-                      style: TextStyle(color: appBarTextColor, fontSize: 20),
-                    )
-                  ],
-                ),
-              )),
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.all(25),
+                  decoration: BoxDecoration(color: backgroundColor),
+                  child: Row(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // SizedBox(width: 20),
+                      Image.asset(
+                        "assets/img/white_logo.png",
+                        scale: 15,
+                      ),
+                      SizedBox(width: 20),
+                      Text("Unsolved QB",
+                          style:
+                              TextStyle(color: appBarTextColor, fontSize: 25))
+                    ],
+                  )
+                  // Row(
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   children: [
+                  //     Icon(Icons.notes, color: appBarTextColor),
+                  //     SizedBox(width: 8),
+                  //     Text(
+                  //       "Unsolved QB",
+                  //       style: TextStyle(color: appBarTextColor, fontSize: 20),
+                  //     )
+                  //   ],
+                  // ),
+                  )),
           Expanded(
             flex: 14,
             child: Container(
@@ -56,7 +71,9 @@ class _leftDrawerScreenState extends State<leftDrawerScreen> {
                 children: [
                   DropdownButton(
                     isExpanded: true,
-                    hint: Text(selected_course),
+                    hint: Text(
+                      selected_course,
+                    ),
                     items: List.generate(courseList.length, ((index) {
                       return DropdownMenuItem(
                         value: courseList[index],
@@ -189,9 +206,9 @@ class _leftDrawerScreenState extends State<leftDrawerScreen> {
                         drawerKey.currentState!.closeDrawer();
                       }
                     },
-                    child: const Text(
+                    child: Text(
                       "Search",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+                      style: TextStyle(color: appBarTextColor, fontSize: 18),
                     ),
                   ),
                 ],
@@ -208,7 +225,7 @@ class _leftDrawerScreenState extends State<leftDrawerScreen> {
       fixedSize: MaterialStateProperty.all<Size>(
           Size(MediaQuery.of(context).size.width, 40)),
       backgroundColor: MaterialStateColor.resolveWith(
-          (states) => backgroundColor.withOpacity(0.5)),
+          (states) => backgroundColor!.withOpacity(0.8)),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),

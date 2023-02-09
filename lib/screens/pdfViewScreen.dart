@@ -39,7 +39,7 @@ class _pdfViewScreenState extends State<pdfViewScreen> {
             appBar: AppBar(
               // shadowColor: Colors.transparent,
               foregroundColor: appBarTextColor,
-              backgroundColor: backgroundColor[300],
+              backgroundColor: backgroundColor,
               leading: TextButton(
                   style: pdfViewScreenButtonStyle(),
                   onPressed: () {

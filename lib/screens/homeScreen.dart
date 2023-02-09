@@ -56,7 +56,7 @@ class _homeScreenState extends State<homeScreen> {
               onRefresh: () => refresh(),
               child: Container(
                 // padding: EdgeInsets.symmetric(horizontal: 0),
-                decoration: BoxDecoration(color: backgroundColor[300]),
+                decoration: BoxDecoration(color: backgroundColor),
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.fromLTRB(10, 10, 8, 0),
@@ -180,7 +180,7 @@ class _homeScreenState extends State<homeScreen> {
     return AppBar(
       shadowColor: Colors.transparent,
       foregroundColor: appBarTextColor,
-      backgroundColor: backgroundColor[300],
+      backgroundColor: backgroundColor,
       leading: TextButton(
           style: homeScreenButtonStyle(),
           child: Icon(Icons.menu, color: appBarTextColor),

@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:share_plus/share_plus.dart';
@@ -71,14 +72,14 @@ class _rightDrawerScreenState extends State<rightDrawerScreen> {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width / 1.4,
-      decoration: BoxDecoration(color: backgroundColor[100]),
+      decoration: BoxDecoration(color: backgroundColorLight),
       child: Column(
         children: [
           Expanded(
               flex: 4,
               child: Container(
                 padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                decoration: BoxDecoration(color: backgroundColor[300]),
+                decoration: BoxDecoration(color: backgroundColor),
                 child: Column(
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -165,7 +166,7 @@ class _rightDrawerScreenState extends State<rightDrawerScreen> {
                               color: appBarTextColor,
                             ),
                             SizedBox(width: 8),
-                            Text("Bookmarked",
+                            Text("Bookmarks",
                                 style: TextStyle(
                                     color: appBarTextColor, fontSize: 20))
                           ],
@@ -188,15 +189,24 @@ class _rightDrawerScreenState extends State<rightDrawerScreen> {
                                   return favCard(snapshot.data![index]);
                                 },
                               )
-                            : Center(
+                            : SingleChildScrollView(
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  // mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: const [
+                                  children: [
+                                    SizedBox(height: 150),
                                     Text(
-                                      "Nothing Bookmarked",
+                                      "No Bookmarks yet\n",
                                       style: TextStyle(
-                                        color: Colors.black,
+                                        fontSize: 15,
+                                        color: Colors.black.withOpacity(0.7),
+                                      ),
+                                    ),
+                                    Text(
+                                      "Bookmark documents for easy access",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.black.withOpacity(0.7),
                                       ),
                                     ),
                                   ],
